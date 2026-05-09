@@ -64,7 +64,7 @@ function dodge() {
   navigator.vibrate?.(8);
 }
 noBtn.addEventListener('mouseenter', dodge);
-noBtn.addEventListener('touchstart', e => { e.preventDefault(); dodge(); }, { passive: false });
+noBtn.addEventListener('touchstart', e => { if (e.cancelable) e.preventDefault(); dodge(); }, { passive: false });
 noBtn.addEventListener('click', e => { e.preventDefault(); dodge(); });
 
 yesBtn.addEventListener('click', () => {
