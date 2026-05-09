@@ -75,65 +75,79 @@ yesBtn.addEventListener('click', () => {
 
 // ░░ SCENE 4: swipe cards ░░
 const stack = document.getElementById('cardStack');
-const cards = [...stack.querySelectorAll('.card')].reverse(); // top-of-stack last in DOM
-cards.forEach((c, i) => {
-  const depth = cards.length - 1 - i;
-  c.style.transform = `translateY(${depth * 6}px) scale(${1 - depth * 0.03})`;
-  c.style.zIndex = i;
-});
 
-let active = stack.lastElementChild;
-let startX = 0, dx = 0, dragging = false;
-
-function bindCard(card) {
-  if (!card) return;
-  const start = e => {
-    dragging = true;
-    startX = (e.touches?.[0]?.clientX ?? e.clientX);
-    card.style.transition = 'none';
-  };
-  const move = e => {
-    if (!dragging) return;
-    const x = (e.touches?.[0]?.clientX ?? e.clientX);
-    dx = x - startX;
-    card.style.transform = `translateX(${dx}px) rotate(${dx * 0.05}deg)`;
-  };
-  const end = () => {
-    if (!dragging) return;
-    dragging = false;
-    card.style.transition = '';
-    if (Math.abs(dx) > 90) {
-      card.classList.add(dx > 0 ? 'gone' : 'gone-left');
-      navigator.vibrate?.(10);
-      setTimeout(() => {
-        card.remove();
-        active = stack.lastElementChild;
-        if (active) {
-          // re-pose remaining stack
-          const remaining = [...stack.querySelectorAll('.card')].reverse();
-          remaining.forEach((c, i) => {
-            const depth = remaining.length - 1 - i;
-            c.style.transform = `translateY(${depth * 6}px) scale(${1 - depth * 0.03})`;
-          });
-          bindCard(active);
-        } else {
-          // out of cards
-          setTimeout(() => go(5), 350);
-        }
-      }, 450);
-    } else {
-      card.style.transform = '';
-    }
-    dx = 0;
-  };
-  card.addEventListener('touchstart', start, { passive: true });
-  card.addEventListener('touchmove', move, { passive: true });
-  card.addEventListener('touchend', end);
-  card.addEventListener('mousedown', start);
-  window.addEventListener('mousemove', move);
-  window.addEventListener('mouseup', end);
+function poseStack() {
+  const remaining = [...stack.querySelectorAll('.card')];
+  // first child = visually on top
+  remaining.forEach((c, i) => {
+    c.style.transform = `translateY(${i * 6}px) scale(${1 - i * 0.03})`;
+    c.style.zIndex = remaining.length - i;
+    c.style.pointerEvents = i === 0 ? 'auto' : 'none';
+  });
 }
-bindCard(active);
+poseStack();
+
+let startX = 0, startY = 0, dx = 0, dy = 0, dragging = false, lockedAxis = null, activeCard = null;
+
+function topCard() { return stack.firstElementChild; }
+
+function onStart(e) {
+  const card = topCard();
+  if (!card) return;
+  if (e.target.closest && !e.target.closest('.card')) return;
+  // only respond if the touched element is or is inside the top card
+  if (!card.contains(e.target)) return;
+  activeCard = card;
+  dragging = true;
+  lockedAxis = null;
+  const t = e.touches?.[0] ?? e;
+  startX = t.clientX; startY = t.clientY; dx = 0; dy = 0;
+  activeCard.style.transition = 'none';
+}
+function onMove(e) {
+  if (!dragging || !activeCard) return;
+  const t = e.touches?.[0] ?? e;
+  dx = t.clientX - startX;
+  dy = t.clientY - startY;
+  if (!lockedAxis && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+    lockedAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+  }
+  if (lockedAxis === 'x') {
+    if (e.cancelable) e.preventDefault();
+    activeCard.style.transform = `translateX(${dx}px) rotate(${dx * 0.05}deg)`;
+  }
+}
+function onEnd() {
+  if (!dragging || !activeCard) { dragging = false; return; }
+  dragging = false;
+  const card = activeCard;
+  activeCard = null;
+  card.style.transition = '';
+  if (lockedAxis === 'x' && Math.abs(dx) > 90) {
+    card.classList.add(dx > 0 ? 'gone' : 'gone-left');
+    navigator.vibrate?.(10);
+    setTimeout(() => {
+      card.remove();
+      if (topCard()) {
+        poseStack();
+      } else {
+        setTimeout(() => go(5), 350);
+      }
+    }, 450);
+  } else {
+    card.style.transform = '';
+    poseStack();
+  }
+  dx = dy = 0; lockedAxis = null;
+}
+
+stack.addEventListener('touchstart', onStart, { passive: true });
+stack.addEventListener('touchmove', onMove, { passive: false });
+stack.addEventListener('touchend', onEnd);
+stack.addEventListener('touchcancel', onEnd);
+stack.addEventListener('mousedown', onStart);
+window.addEventListener('mousemove', onMove);
+window.addEventListener('mouseup', onEnd);
 
 // ░░ SCENE 5: typed letter ░░
 const letterText =

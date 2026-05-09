@@ -161,7 +161,7 @@ h2.line, h2.finale-line {
   transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s;
   will-change: transform;
   user-select: none;
-  touch-action: pan-y;
+  touch-action: none;
 }
 .card-num {
   font-family: 'Playfair Display', serif; font-style: italic;
