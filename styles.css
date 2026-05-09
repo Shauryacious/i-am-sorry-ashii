@@ -1,0 +1,227 @@
+/* ── reset & base ─────────────────────────────────────────── */
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%, #2a0a3a 0%, transparent 45%),
+    radial-gradient(circle at 80% 90%, #4a0a2a 0%, transparent 45%),
+    linear-gradient(180deg, #0a0014 0%, #1a0420 100%);
+  color: #fce7f3;
+  position: fixed; inset: 0;
+  touch-action: pan-y;
+}
+#petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+/* ── scenes ───────────────────────────────────────────────── */
+.scene {
+  position: absolute; inset: 0;
+  padding: 6vh 24px env(safe-area-inset-bottom, 24px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 28px; text-align: center;
+  opacity: 0; transform: translateY(20px) scale(0.98);
+  pointer-events: none;
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+  z-index: 2;
+}
+.scene.active { opacity: 1; transform: none; pointer-events: auto; }
+
+h2.line, h2.finale-line {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+  line-height: 1.3;
+  color: #ffd1e8;
+  max-width: 22ch;
+}
+.whisper { font-size: 0.95rem; opacity: 0.7; max-width: 28ch; line-height: 1.5; }
+.hint { font-size: 0.8rem; opacity: 0.5; }
+
+/* ── buttons ──────────────────────────────────────────────── */
+.ghost-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 209, 232, 0.4);
+  color: #ffd1e8;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: transform .2s, background .2s, border-color .2s;
+}
+.ghost-btn:active { transform: scale(0.96); background: rgba(255,209,232,0.08); }
+
+.big-btn {
+  background: linear-gradient(135deg, #ff5f8d, #ff95b8);
+  color: #fff;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: inherit;
+  box-shadow: 0 12px 40px rgba(255,95,141,0.45), inset 0 -3px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform .15s;
+}
+.big-btn:active { transform: scale(0.95); }
+.hidden { display: none !important; }
+
+/* ── SCENE 1 : door ───────────────────────────────────────── */
+.door-wrap { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.door {
+  width: min(60vw, 220px);
+  aspect-ratio: 2/3;
+  background: linear-gradient(135deg, #5b1d3a 0%, #3a0f24 100%);
+  border-radius: 14px 14px 4px 4px;
+  position: relative;
+  box-shadow:
+    inset 0 0 0 4px rgba(255,209,232,0.12),
+    inset 0 0 0 8px rgba(0,0,0,0.4),
+    0 30px 80px rgba(255,95,141,0.25);
+  cursor: pointer;
+  animation: doorBreathe 3s ease-in-out infinite;
+}
+@keyframes doorBreathe { 50% { box-shadow: inset 0 0 0 4px rgba(255,209,232,0.25), inset 0 0 0 8px rgba(0,0,0,0.4), 0 30px 100px rgba(255,95,141,0.5); } }
+.peephole { position: absolute; top: 22%; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle, #ffd1e8, #ff5f8d); animation: peep 1.6s ease-in-out infinite; }
+@keyframes peep { 50% { transform: translateX(-50%) scale(1.4); opacity: 0.6; } }
+.knob { position: absolute; right: 14px; top: 55%; width: 10px; height: 10px; border-radius: 50%; background: #ffd1e8; box-shadow: 0 0 12px #ff95b8; }
+.knock-text { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%); font-family: 'Caveat', cursive; font-size: 1.3rem; color: #ffd1e8; white-space: nowrap; opacity: 0.7; animation: knock 1.4s ease-in-out infinite; }
+@keyframes knock { 50% { opacity: 1; transform: translateX(-50%) translateY(-3px); } }
+.door-sub { font-family: 'Caveat', cursive; font-size: 1.4rem; color: #ffd1e8; margin-top: 36px; opacity: 0.85; }
+.door.opening { animation: doorOpen .9s forwards ease-in; }
+@keyframes doorOpen {
+  0% { transform: perspective(800px) rotateY(0); }
+  100% { transform: perspective(800px) rotateY(-85deg); opacity: 0; }
+}
+
+/* ── SCENE 2 : rain name + heart ──────────────────────────── */
+.rain-name { display: flex; gap: 4px; height: 90px; align-items: flex-end; justify-content: center; }
+.rain-name span {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(3rem, 14vw, 5rem);
+  color: #ffd1e8;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-200px);
+  text-shadow: 0 0 30px rgba(255,95,141,0.6);
+}
+.rain-name span.drop { animation: drop .9s cubic-bezier(.5,1.6,.4,1) forwards; }
+@keyframes drop { 60% { transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+
+.heart-stage { height: 80px; display: flex; align-items: center; justify-content: center; }
+.heart-broken { font-size: 4rem; position: relative; display: flex; }
+.heart-broken span { color: #ff5f8d; filter: drop-shadow(0 0 20px rgba(255,95,141,0.6)); }
+.heart-broken .hb-left  { transform: rotate(-15deg) translateX(8px); animation: crackL 2s ease-in-out infinite; }
+.heart-broken .hb-right { transform: rotate(15deg) translateX(-8px); animation: crackR 2s ease-in-out infinite; }
+@keyframes crackL { 50% { transform: rotate(-25deg) translateX(2px); } }
+@keyframes crackR { 50% { transform: rotate(25deg) translateX(-2px); } }
+
+/* ── SCENE 3 : runaway button ─────────────────────────────── */
+.btn-arena { position: relative; width: 100%; height: 220px; }
+.yes-btn, .no-btn {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  border: none; border-radius: 999px; font-family: inherit; font-weight: 700;
+  cursor: pointer; transition: left .35s cubic-bezier(.5,1.6,.4,1), top .35s cubic-bezier(.5,1.6,.4,1), transform .15s, font-size .4s, padding .4s;
+}
+.yes-btn {
+  left: 30%;
+  background: linear-gradient(135deg, #ff5f8d, #ff95b8);
+  color: #fff; padding: 18px 36px; font-size: 1.1rem;
+  box-shadow: 0 12px 40px rgba(255,95,141,0.45);
+}
+.yes-btn:active { transform: translate(-50%, -50%) scale(0.95); }
+.no-btn {
+  left: 70%;
+  background: rgba(255,255,255,0.06);
+  color: #fce7f3; padding: 14px 26px; font-size: 0.95rem;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.yes-btn.grow { padding: 26px 60px; font-size: 1.4rem; box-shadow: 0 18px 60px rgba(255,95,141,0.65); }
+
+/* ── SCENE 4 : swipeable cards ────────────────────────────── */
+.card-stack {
+  position: relative;
+  width: min(86vw, 360px);
+  height: min(56vh, 460px);
+}
+.card {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(255,209,232,0.12), rgba(255,95,141,0.06));
+  border: 1px solid rgba(255,209,232,0.18);
+  border-radius: 22px;
+  padding: 28px 24px;
+  display: flex; flex-direction: column; justify-content: center; gap: 18px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .4s;
+  will-change: transform;
+  user-select: none;
+  touch-action: pan-y;
+}
+.card-num {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.85rem; opacity: 0.5; letter-spacing: 0.2em;
+}
+.card h3 {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-weight: 400; color: #ffd1e8;
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+}
+.card p { font-size: 1.05rem; line-height: 1.55; opacity: 0.9; }
+.card.finale { background: linear-gradient(160deg, rgba(255,95,141,0.25), rgba(255,209,232,0.08)); }
+.card.gone { transform: translateX(120vw) rotate(25deg); opacity: 0; }
+.card.gone-left { transform: translateX(-120vw) rotate(-25deg); opacity: 0; }
+.swipe-hint { font-family: 'Caveat', cursive; font-size: 1.2rem; opacity: 0.6; }
+
+/* ── SCENE 5 : letter ─────────────────────────────────────── */
+.letter {
+  background: linear-gradient(180deg, #fef6ec, #fce8d8);
+  color: #3a1a2a;
+  padding: 36px 26px;
+  border-radius: 6px;
+  width: min(88vw, 380px);
+  font-family: 'Caveat', cursive;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.04);
+  transform: rotate(-1.2deg);
+  position: relative;
+}
+.letter::before, .letter::after {
+  content: ''; position: absolute; width: 50px; height: 16px;
+  background: rgba(255,255,255,0.4); top: -8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.letter::before { left: 16px; transform: rotate(-8deg); }
+.letter::after { right: 16px; transform: rotate(7deg); }
+.letter-date { font-size: 1.1rem; opacity: 0.6; margin-bottom: 16px; }
+.letter-body { font-size: 1.5rem; line-height: 1.45; min-height: 240px; white-space: pre-wrap; }
+.letter-body::after { content: '|'; animation: blink 0.9s steps(1) infinite; opacity: 0.6; }
+@keyframes blink { 50% { opacity: 0; } }
+.letter-body.done::after { display: none; }
+.letter-sign { font-size: 1.3rem; margin-top: 18px; text-align: right; opacity: 0.85; }
+
+/* ── SCENE 6 : finale ─────────────────────────────────────── */
+.heart-fixed { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
+.heart-pulse { font-size: 6rem; color: #ff5f8d; filter: drop-shadow(0 0 40px rgba(255,95,141,0.9)); animation: beat 1.1s ease-in-out infinite; }
+@keyframes beat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.18); } 50% { transform: scale(0.96); } 75% { transform: scale(1.08); } }
+.ring { position: absolute; inset: 0; border: 2px solid rgba(255,95,141,0.5); border-radius: 50%; animation: ring 2.4s ease-out infinite; }
+.ring.r2 { animation-delay: .8s; }
+.ring.r3 { animation-delay: 1.6s; }
+@keyframes ring { 0% { transform: scale(0.4); opacity: 0.9; } 100% { transform: scale(1.6); opacity: 0; } }
+
+.forgive-row { display: flex; gap: 14px; }
+.forgiven { display: flex; flex-direction: column; gap: 12px; max-width: 28ch; animation: rise .9s ease-out; }
+.forgiven h3 { font-family: 'Playfair Display', serif; font-style: italic; color: #ffd1e8; font-size: 1.5rem; }
+.forgiven p { opacity: 0.85; line-height: 1.5; }
+.forgiven .tiny { font-size: 0.75rem; opacity: 0.5; margin-top: 12px; }
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } }
+
+/* ── tiny screens ─────────────────────────────────────────── */
+@media (max-height: 640px) {
+  .card-stack { height: 50vh; }
+  .letter-body { min-height: 180px; font-size: 1.3rem; }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0014" />
+<title>for ashii 🥺</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="petals"></canvas>
+
+<!-- ░░ SCENE 1: KNOCK KNOCK ░░ -->
+<section class="scene scene-1 active" id="scene-1">
+  <div class="door-wrap">
+    <div class="door" id="door">
+      <div class="peephole"></div>
+      <div class="knob"></div>
+      <div class="knock-text">tap to open</div>
+    </div>
+    <p class="door-sub">someone's at the door for you, ashii…</p>
+  </div>
+</section>
+
+<!-- ░░ SCENE 2: NAME RAIN ░░ -->
+<section class="scene scene-2" id="scene-2">
+  <div class="rain-name" id="rainName"></div>
+  <div class="heart-stage">
+    <div class="heart-broken" id="heartBroken">
+      <span class="hb-left">❤</span>
+      <span class="hb-right">❤</span>
+    </div>
+  </div>
+  <p class="whisper">i broke something. and i'm here to fix it.</p>
+  <button class="ghost-btn" data-next="3">keep going →</button>
+</section>
+
+<!-- ░░ SCENE 3: THE RUNAWAY BUTTON ░░ -->
+<section class="scene scene-3" id="scene-3">
+  <h2 class="line">will you let me say sorry?</h2>
+  <div class="btn-arena">
+    <button class="yes-btn" id="yesBtn">yes 🥺</button>
+    <button class="no-btn" id="noBtn">no 😤</button>
+  </div>
+  <p class="hint" id="noHint">(go ahead, try to press no)</p>
+</section>
+
+<!-- ░░ SCENE 4: SWIPE THE APOLOGIES ░░ -->
+<section class="scene scene-4" id="scene-4">
+  <h2 class="line">swipe through every sorry →</h2>
+  <div class="card-stack" id="cardStack">
+    <div class="card" data-i="0">
+      <span class="card-num">01</span>
+      <h3>i'm sorry</h3>
+      <p>for raising my voice when i should've just held your hand.</p>
+    </div>
+    <div class="card" data-i="1">
+      <span class="card-num">02</span>
+      <h3>i'm sorry</h3>
+      <p>for the texts i sent before i thought. you deserve the slow, careful version of me.</p>
+    </div>
+    <div class="card" data-i="2">
+      <span class="card-num">03</span>
+      <h3>i'm sorry</h3>
+      <p>for making you feel small. you are the biggest thing in my world.</p>
+    </div>
+    <div class="card" data-i="3">
+      <span class="card-num">04</span>
+      <h3>i'm sorry</h3>
+      <p>for forgetting that "fine" usually means "please notice me." i'm noticing now.</p>
+    </div>
+    <div class="card" data-i="4">
+      <span class="card-num">05</span>
+      <h3>i'm sorry</h3>
+      <p>for being the reason your eyes looked tired today. i'd undo it twice if i could.</p>
+    </div>
+    <div class="card finale" data-i="5">
+      <span class="card-num">∞</span>
+      <h3>and most of all —</h3>
+      <p>i'm sorry it took an apology this loud, when you've always been this gentle.</p>
+    </div>
+  </div>
+  <p class="swipe-hint">← swipe →</p>
+</section>
+
+<!-- ░░ SCENE 5: HANDWRITTEN LETTER ░░ -->
+<section class="scene scene-5" id="scene-5">
+  <div class="letter">
+    <p class="letter-date">a letter, written slowly —</p>
+    <div class="letter-body" id="letterBody"></div>
+    <p class="letter-sign">— yours, still and always</p>
+  </div>
+  <button class="ghost-btn hidden" id="toFinale" data-next="6">i have one more thing →</button>
+</section>
+
+<!-- ░░ SCENE 6: HEART REASSEMBLES ░░ -->
+<section class="scene scene-6" id="scene-6">
+  <div class="heart-fixed">
+    <div class="heart-pulse">❤</div>
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+  </div>
+  <h2 class="finale-line">forgive me, ashii baby?</h2>
+  <div class="forgive-row">
+    <button class="big-btn" id="forgiveBtn">i forgive you 💗</button>
+  </div>
+  <div class="forgiven hidden" id="forgivenMsg">
+    <h3>thank you for being soft with me.</h3>
+    <p>i'll spend every quiet day earning it back.</p>
+    <p class="tiny">— refresh to read it all again, anytime you need.</p>
+  </div>
+</section>
+
+<audio id="heartbeat" loop preload="auto">
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" />
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
