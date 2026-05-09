@@ -18,11 +18,17 @@ document.querySelectorAll('[data-next]').forEach(b =>
 
 // ░░ SCENE 1: door ░░
 const door = document.getElementById('door');
-door.addEventListener('click', () => {
+let doorOpened = false;
+function openDoor(e) {
+  if (doorOpened) return;
+  doorOpened = true;
+  e?.preventDefault?.();
   door.classList.add('opening');
   navigator.vibrate?.(15);
   setTimeout(() => go(2), 700);
-});
+}
+door.addEventListener('click', openDoor);
+door.addEventListener('touchend', openDoor, { passive: false });
 
 // ░░ SCENE 2: name rain ░░
 function rainName() {
