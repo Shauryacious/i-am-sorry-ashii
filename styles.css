@@ -178,7 +178,15 @@ h2.line, h2.finale-line {
 .card.gone-left { transform: translateX(-120vw) rotate(-25deg); opacity: 0; }
 .swipe-hint { font-family: 'Caveat', cursive; font-size: 1.2rem; opacity: 0.6; }
 
-/* ── SCENE 5 : letter ─────────────────────────────────────── */
+/* ── SCENE 5 : letter (scrollable) ────────────────────────── */
+#scene-5 {
+  justify-content: flex-start;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding-top: 5vh;
+  padding-bottom: 12vh;
+}
 .letter {
   background: linear-gradient(180deg, #fef6ec, #fce8d8);
   color: #3a1a2a;
@@ -198,7 +206,7 @@ h2.line, h2.finale-line {
 .letter::before { left: 16px; transform: rotate(-8deg); }
 .letter::after { right: 16px; transform: rotate(7deg); }
 .letter-date { font-size: 1.1rem; opacity: 0.6; margin-bottom: 16px; }
-.letter-body { font-size: 1.5rem; line-height: 1.45; min-height: 240px; white-space: pre-wrap; }
+.letter-body { font-size: 1.5rem; line-height: 1.45; min-height: 240px; white-space: pre-wrap; word-break: break-word; }
 .letter-body::after { content: '|'; animation: blink 0.9s steps(1) infinite; opacity: 0.6; }
 @keyframes blink { 50% { opacity: 0; } }
 .letter-body.done::after { display: none; }
