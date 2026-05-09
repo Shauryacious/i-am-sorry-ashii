@@ -151,21 +151,32 @@ window.addEventListener('mouseup', onEnd);
 
 // ░░ SCENE 5: typed letter ░░
 const letterText =
-`my ashii baby,
+`ashii,
 
-i'm not writing this to be forgiven —
-i'm writing it because you deserve the words,
-spelled out slow, no rushing, no excuses.
+i've been replaying the last three days
+on a loop in my head.
+the things i said. the way i said them.
+"you're just attached" — i don't even know
+who that was. not me. or maybe a scared
+version of me i don't want to be again.
 
-you are the softest part of every loud day.
-you are the reason my chest forgets to be tired.
-and i was careless with something sacred.
+you wrote "all i wanted was love."
+and the worst part is — i had it the whole time.
+i just kept handing it to you in the wrong shape.
 
-i see you. i'm learning you. i'm choosing you —
-not just on the easy days, but especially the hard ones.
+i keep picturing you on that train. on auto.
+going to the station, alone with your phone.
+i should be the reason your phone makes you smile.
+not the reason you went quiet for two days straight.
 
-if you let me, i'll be gentler tomorrow,
-and the day after, and the one after that.`;
+i'm not asking you to forget any of it.
+i'm asking you to let me be slower. softer.
+more careful with the thing
+you've been trusting me with all along.
+
+i love you. plainly. without the noise.
+and i'm sorry it took this much
+for me to finally say it right.`;
 
 function typeLetter() {
   const out = document.getElementById('letterBody');
