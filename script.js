@@ -18,17 +18,20 @@ document.querySelectorAll('[data-next]').forEach(b =>
 
 // ░░ SCENE 1: door ░░
 const door = document.getElementById('door');
+const scene1 = document.getElementById('scene-1');
 let doorOpened = false;
 function openDoor(e) {
   if (doorOpened) return;
   doorOpened = true;
-  e?.preventDefault?.();
+  try { e && e.cancelable && e.preventDefault(); } catch (_) {}
   door.classList.add('opening');
   navigator.vibrate?.(15);
   setTimeout(() => go(2), 700);
 }
-door.addEventListener('click', openDoor);
-door.addEventListener('touchend', openDoor, { passive: false });
+// bind to the whole scene so a near-miss still opens it; multiple event types for safety
+scene1.addEventListener('touchstart', openDoor, { passive: false });
+scene1.addEventListener('pointerdown', openDoor);
+scene1.addEventListener('click', openDoor);
 
 // ░░ SCENE 2: name rain ░░
 function rainName() {
