@@ -78,11 +78,11 @@ const stack = document.getElementById('cardStack');
 
 function poseStack() {
   const remaining = [...stack.querySelectorAll('.card')];
-  // first child = visually on top
+  // first child = visually on top. don't touch pointer-events here:
+  // parent .scene controls interactivity via .active. inline auto would leak.
   remaining.forEach((c, i) => {
     c.style.transform = `translateY(${i * 6}px) scale(${1 - i * 0.03})`;
     c.style.zIndex = remaining.length - i;
-    c.style.pointerEvents = i === 0 ? 'auto' : 'none';
   });
 }
 poseStack();
