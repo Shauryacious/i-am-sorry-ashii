@@ -47,18 +47,30 @@ let dodgeCount = 0;
 
 function dodge() {
   const a = arena.getBoundingClientRect();
-  const padX = 60, padY = 40;
-  const x = padX + Math.random() * Math.max(0, a.width - padX * 2);
-  const y = padY + Math.random() * Math.max(0, a.height - padY * 2);
+  const nb = noBtn.getBoundingClientRect();
+  const y0 = yesBtn.getBoundingClientRect();
+  const padX = Math.min(60, a.width * 0.18), padY = 40, margin = 16;
+  // yes-btn box in arena-local coords, padded so "no" never lands on top of it
+  const yesL = y0.left - a.left - margin, yesR = y0.right - a.left + margin;
+  const yesT = y0.top - a.top - margin, yesB = y0.bottom - a.top + margin;
+  let x = padX, y = padY;
+  for (let i = 0; i < 30; i++) {
+    x = padX + Math.random() * Math.max(0, a.width - padX * 2);
+    y = padY + Math.random() * Math.max(0, a.height - padY * 2);
+    // x,y is the no-btn centre (it's translate(-50%, -50%))
+    const hit = x - nb.width / 2 < yesR && x + nb.width / 2 > yesL &&
+      y - nb.height / 2 < yesB && y + nb.height / 2 > yesT;
+    if (!hit) break;
+  }
   noBtn.style.left = x + 'px';
   noBtn.style.top = y + 'px';
   dodgeCount++;
   if (dodgeCount === 2) noHint.textContent = '(it really doesn\'t want to be pressed)';
-  if (dodgeCount === 4) noHint.textContent = '(neither do i, honestly)';
+  if (dodgeCount === 4) noHint.textContent = '(hehe)';
   if (dodgeCount >= 6) {
     noBtn.style.opacity = '0.2';
     noBtn.style.pointerEvents = 'none';
-    noHint.textContent = '(ok, fine — there\'s only one option)';
+    noHint.textContent = '(ok, fine - there\'s only one option)';
     yesBtn.classList.add('grow');
   }
   navigator.vibrate?.(8);
@@ -151,32 +163,15 @@ window.addEventListener('mouseup', onEnd);
 
 // ░░ SCENE 5: typed letter ░░
 const letterText =
-`ashii,
+  `ashii,
 
-i've been replaying the last three days
-on a loop in my head.
-the things i said. the way i said them.
-"you're just attached" — i don't even know
-who that was. not me. or maybe a scared
-version of me i don't want to be again.
-
-you wrote "all i wanted was love."
-and the worst part is — i had it the whole time.
-i just kept handing it to you in the wrong shape.
-
-i keep picturing you on that train. on auto.
-going to the station, alone with your phone.
-i should be the reason your phone makes you smile.
-not the reason you went quiet for two days straight.
-
-i'm not asking you to forget any of it.
-i'm asking you to let me be slower. softer.
-more careful with the thing
-you've been trusting me with all along.
-
-i love you. plainly. without the noise.
-and i'm sorry it took this much
-for me to finally say it right.`;
+i've been replaying the last 3-5 days
+on a loop in my head,
+the things i said, the way i said them,
+"you're just attached"... i don't even know
+who that was, not me, will not be me ever again, 
+i m sorryyyyy babyyyy maaf krdooo.
+`;
 
 function typeLetter() {
   const out = document.getElementById('letterBody');

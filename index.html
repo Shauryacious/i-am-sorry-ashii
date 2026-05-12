@@ -1,125 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<meta name="theme-color" content="#0a0014" />
-<title>for ashii 🥺</title>
-<link rel="stylesheet" href="styles.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0a0014" />
+    <title>for ashii 🥺</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;500;700&family=Playfair+Display:ital@1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas id="petals"></canvas>
 
-<canvas id="petals"></canvas>
+    <!-- ░░ SCENE 1: KNOCK KNOCK ░░ -->
+    <section class="scene scene-1 active" id="scene-1">
+      <div class="door-wrap">
+        <div class="door" id="door">
+          <div class="peephole"></div>
+          <div class="knob"></div>
+          <div class="knock-text">tap to open</div>
+        </div>
+        <p class="door-sub">someone's at the door for you, ashii…</p>
+      </div>
+    </section>
 
-<!-- ░░ SCENE 1: KNOCK KNOCK ░░ -->
-<section class="scene scene-1 active" id="scene-1">
-  <div class="door-wrap">
-    <div class="door" id="door">
-      <div class="peephole"></div>
-      <div class="knob"></div>
-      <div class="knock-text">tap to open</div>
-    </div>
-    <p class="door-sub">someone's at the door for you, ashii…</p>
-  </div>
-</section>
+    <!-- ░░ SCENE 2: NAME RAIN ░░ -->
+    <section class="scene scene-2" id="scene-2">
+      <div class="rain-name" id="rainName"></div>
+      <div class="heart-stage">
+        <div class="heart-broken" id="heartBroken">
+          <span class="hb-left">❤</span>
+          <span class="hb-right">❤</span>
+        </div>
+      </div>
+      <p class="whisper">
+        i said things in the last 3-5 days i didn't mean. i can't take them
+        back. but i can sit here, and try.
+      </p>
+      <button class="ghost-btn" data-next="3">keep going →</button>
+    </section>
 
-<!-- ░░ SCENE 2: NAME RAIN ░░ -->
-<section class="scene scene-2" id="scene-2">
-  <div class="rain-name" id="rainName"></div>
-  <div class="heart-stage">
-    <div class="heart-broken" id="heartBroken">
-      <span class="hb-left">❤</span>
-      <span class="hb-right">❤</span>
-    </div>
-  </div>
-  <p class="whisper">i said things in the last three days i didn't mean. i can't take them back. but i can sit here, and try.</p>
-  <button class="ghost-btn" data-next="3">keep going →</button>
-</section>
+    <!-- ░░ SCENE 3: THE RUNAWAY BUTTON ░░ -->
+    <section class="scene scene-3" id="scene-3">
+      <h2 class="line">will you hear me out?</h2>
+      <div class="btn-arena">
+        <button class="yes-btn" id="yesBtn">yes 🥺</button>
+        <button class="no-btn" id="noBtn">no 😤</button>
+      </div>
+      <p class="hint" id="noHint">(go ahead, try to press no)</p>
+    </section>
 
-<!-- ░░ SCENE 3: THE RUNAWAY BUTTON ░░ -->
-<section class="scene scene-3" id="scene-3">
-  <h2 class="line">will you hear me out?</h2>
-  <div class="btn-arena">
-    <button class="yes-btn" id="yesBtn">yes 🥺</button>
-    <button class="no-btn" id="noBtn">no 😤</button>
-  </div>
-  <p class="hint" id="noHint">(go ahead, try to press no)</p>
-</section>
+    <!-- ░░ SCENE 4: SWIPE THE APOLOGIES ░░ -->
+    <section class="scene scene-4" id="scene-4">
+      <h2 class="line">swipe through every sorry →</h2>
+      <div class="card-stack" id="cardStack">
+        <div class="card" data-i="0">
+          <span class="card-num">01</span>
+          <h3>i'm sorry</h3>
+          <p>for saying you were "just attached."</p>
+        </div>
+        <div class="card" data-i="1">
+          <span class="card-num">02</span>
+          <h3>i'm sorry</h3>
+          <p>for not giving you my time, attention, pampering</p>
+        </div>
+        <div class="card" data-i="2">
+          <span class="card-num">03</span>
+          <h3>i'm sorry</h3>
+          <p>
+            for saying "all i wanted was love", i was just attacking you, i m
+            dumb, ik you love me babyyyyy
+          </p>
+        </div>
+        <div class="card" data-i="3">
+          <span class="card-num">04</span>
+          <h3>i'm sorry</h3>
+          <p>
+            for the making you sad and make you cry, ill never do that
+            intentionally
+          </p>
+        </div>
+        <div class="card" data-i="4">
+          <span class="card-num">05</span>
+          <h3>i'm sorry</h3>
+          <p>for not babying my lil baby perfectly</p>
+        </div>
+        <div class="card finale" data-i="5">
+          <span class="card-num">∞</span>
+          <h3>and most of all...</h3>
+          <p>
+            i'm sorry for blocking you, i wont do that again, ill try mumma
+            promise
+          </p>
+        </div>
+      </div>
+      <p class="swipe-hint">← swipe →</p>
+    </section>
 
-<!-- ░░ SCENE 4: SWIPE THE APOLOGIES ░░ -->
-<section class="scene scene-4" id="scene-4">
-  <h2 class="line">swipe through every sorry →</h2>
-  <div class="card-stack" id="cardStack">
-    <div class="card" data-i="0">
-      <span class="card-num">01</span>
-      <h3>i'm sorry</h3>
-      <p>for saying you were "just attached." that was the most wrong thing i've ever said. you love me — i know you do. i was scared of it and i made it smaller to feel less of it.</p>
-    </div>
-    <div class="card" data-i="1">
-      <span class="card-num">02</span>
-      <h3>i'm sorry</h3>
-      <p>for the last three days. for every line that came out before i thought it through. you didn't deserve a single one of them.</p>
-    </div>
-    <div class="card" data-i="2">
-      <span class="card-num">03</span>
-      <h3>i'm sorry</h3>
-      <p>for making you ask. "all i wanted was love" — i read that line over and over. i had it the whole time. i was just too clumsy to hand it over right.</p>
-    </div>
-    <div class="card" data-i="3">
-      <span class="card-num">04</span>
-      <h3>i'm sorry</h3>
-      <p>for the 🙁. for letting it sit there. for being the reason you had to soften everything you were feeling into one tiny face.</p>
-    </div>
-    <div class="card" data-i="4">
-      <span class="card-num">05</span>
-      <h3>i'm sorry</h3>
-      <p>for letting you walk to the station on auto. i should have been the one running after you. instead i let you go quiet — and i won't do that again.</p>
-    </div>
-    <div class="card finale" data-i="5">
-      <span class="card-num">∞</span>
-      <h3>and most of all —</h3>
-      <p>i'm sorry it took breaking something this soft for me to wake up. you came in asking for love. i'm here now, ashii. all of it. no half-versions.</p>
-    </div>
-  </div>
-  <p class="swipe-hint">← swipe →</p>
-</section>
+    <!-- ░░ SCENE 5: HANDWRITTEN LETTER ░░ -->
+    <section class="scene scene-5" id="scene-5">
+      <div class="letter">
+        <p class="letter-date">Apology Letter</p>
+        <div class="letter-body" id="letterBody"></div>
+        <p class="letter-sign">— Yours, Always and Forever</p>
+      </div>
+      <button class="ghost-btn hidden" id="toFinale" data-next="6">
+        i have one more thing →
+      </button>
+    </section>
 
-<!-- ░░ SCENE 5: HANDWRITTEN LETTER ░░ -->
-<section class="scene scene-5" id="scene-5">
-  <div class="letter">
-    <p class="letter-date">a letter, written slowly —</p>
-    <div class="letter-body" id="letterBody"></div>
-    <p class="letter-sign">— yours, still and always</p>
-  </div>
-  <button class="ghost-btn hidden" id="toFinale" data-next="6">i have one more thing →</button>
-</section>
+    <!-- ░░ SCENE 6: HEART REASSEMBLES ░░ -->
+    <section class="scene scene-6" id="scene-6">
+      <div class="heart-fixed">
+        <div class="heart-pulse">❤</div>
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+      </div>
+      <h2 class="finale-line">forgive me, ashii baby?</h2>
+      <div class="forgive-row">
+        <button class="big-btn" id="forgiveBtn">i forgive you 💗</button>
+      </div>
+      <div class="forgiven hidden" id="forgivenMsg">
+        <h3>
+          thank you for always forgiving my mistakes and treating me like a
+          babyyy
+        </h3>
+      </div>
+    </section>
 
-<!-- ░░ SCENE 6: HEART REASSEMBLES ░░ -->
-<section class="scene scene-6" id="scene-6">
-  <div class="heart-fixed">
-    <div class="heart-pulse">❤</div>
-    <div class="ring r1"></div>
-    <div class="ring r2"></div>
-    <div class="ring r3"></div>
-  </div>
-  <h2 class="finale-line">forgive me, ashii baby?</h2>
-  <div class="forgive-row">
-    <button class="big-btn" id="forgiveBtn">i forgive you 💗</button>
-  </div>
-  <div class="forgiven hidden" id="forgivenMsg">
-    <h3>thank you for being soft with me — again.</h3>
-    <p>i'll spend the quiet days earning it back. and the loud ones too.</p>
-    <p class="tiny">i love you, ashneet. plainly. and for real this time.</p>
-  </div>
-</section>
+    <audio id="heartbeat" loop preload="auto">
+      <source
+        src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="
+      />
+    </audio>
 
-<audio id="heartbeat" loop preload="auto">
-  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" />
-</audio>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

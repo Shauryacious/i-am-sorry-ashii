@@ -130,6 +130,7 @@ h2.line, h2.finale-line {
 }
 .yes-btn {
   left: 30%;
+  z-index: 2;
   background: linear-gradient(135deg, #ff5f8d, #ff95b8);
   color: #fff; padding: 18px 36px; font-size: 1.1rem;
   box-shadow: 0 12px 40px rgba(255,95,141,0.45);
@@ -137,6 +138,7 @@ h2.line, h2.finale-line {
 .yes-btn:active { transform: translate(-50%, -50%) scale(0.95); }
 .no-btn {
   left: 70%;
+  z-index: 1;
   background: rgba(255,255,255,0.06);
   color: #fce7f3; padding: 14px 26px; font-size: 0.95rem;
   border: 1px solid rgba(255,255,255,0.15);
